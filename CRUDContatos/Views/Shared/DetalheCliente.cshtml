@@ -1,0 +1,52 @@
+﻿@model CrudContatos.Sistema.Entidades.Cliente
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-10">
+            <h4>
+                <strong>
+                    @Model.Nome
+                </strong>
+            </h4>
+        </div>
+        <div class="col-lg-2">
+            @Html.ActionLink("Editar", "EditarCliente", "Cliente", new { CodCliente = Model.CodCliente }, new { @class = "btn btn-info btn-md pull-right btn-block" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <b>E-Mail:</b> @Model.Email
+        </div>
+        <div class="col-lg-2">
+            <input id="btnDeletar" type="submit" value="Excluir" data-target="#basic" data-toggle="modal" data-id="@Model.CodCliente"
+                   class="btn btn-danger btn md pull-right btn-block" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10" style="padding-bottom:10px">
+            <b>Cadastro:</b> @Model.DataCriacao.ToString("dd/MM/yyyy")
+        </div>
+    </div>
+</div>
+
+<!--Dialogo modal de confirmação-->
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deletar o cliente abaixo?</p>
+                <b>@Model.Nome</b>
+                <p>Esta ação não poderá ser desfeita!</p>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn btn-default">Cancelar</button>
+                @Html.ActionLink("Confirmar exclusão", "ExcluirCliente", "Cliente", new { id = Model.CodCliente }, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+</div>

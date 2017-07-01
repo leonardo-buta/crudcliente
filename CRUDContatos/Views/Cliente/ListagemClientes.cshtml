@@ -1,0 +1,35 @@
+﻿@using CRUDContatos.HtmlHelpers
+@model CRUDContatos.Models.ClienteViewModel
+
+@{
+    ViewBag.Title = "Lista de Clientes";
+}
+
+<h2>Lista de Clientes</h2>
+
+@if (Request.QueryString["Mensagem"] != null)
+{
+    <!--Mensagem de sucesso-->
+    <div id="divMensagemSucesso" class="alert alert-success" role="alert">
+        <strong>Sucesso!</strong><br /> Cliente @Request.QueryString["Mensagem"] com sucesso.
+    </div>
+}
+
+@if (Model != null)
+{
+    foreach (var c in Model.Clientes)
+    {
+        @Html.Partial("DetalheCliente", c)
+    }
+
+    <!--Paginação-->
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.Paginacao, x => Url.Action("ListagemClientes", new { pagina = x }))
+    </div>
+}
+else
+{
+    <div class="well">
+        Não há clientes para serem exibidos.
+    </div>
+}
